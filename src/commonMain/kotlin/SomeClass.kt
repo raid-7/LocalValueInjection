@@ -5,7 +5,7 @@ import kotlinx.serialization.Transient
 
 @Serializable
 class SomeClass(private val context: Context) {
-    val remoteId = context.siteId
+    val remoteId = context?.siteId
 
     @Transient
     val localId = context.siteId
