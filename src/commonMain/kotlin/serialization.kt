@@ -7,15 +7,15 @@ import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.modules.SerializersModule
 
 
-private fun getSerialModuleForContext(context: NodeContext) =
+private fun getSerialModuleForContext(context: Context) =
             SerializersModule {
-                contextual(NodeContextWrapper::class,
-                    ContextualInjectorSerializer(context.wrapped())
+                contextual(Context::class,
+                    ContextualInjectorSerializer(context)
                 )
             }
 
 class SerializationManager(site: String) {
-    val context: NodeContext = Context(site)
+    private val context = Context(site)
     private val module = getSerialModuleForContext(context)
 
     fun serialize(prototype: SomeClass): String {
@@ -27,6 +27,4 @@ class SerializationManager(site: String) {
     }
 
     private fun getJson() = Json(JsonConfiguration.Stable, module)
-
-    private inner class Context(override val siteId: String) : NodeContext
 }

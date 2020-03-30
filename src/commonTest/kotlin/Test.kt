@@ -8,8 +8,9 @@ class Test {
     fun basicSingle() {
         val m1 = SerializationManager("local1")
         val m2 = SerializationManager("local2")
-        val serialized = m1.serialize(SomeClass(m1.context.wrapped()))
+        val serialized = m1.serialize(SomeClass(Context("test")))
 
-        assertEquals("local2", m2.deserialize(serialized).id)
+        assertEquals("test", m2.deserialize(serialized).remoteId)
+        assertEquals("local2", m2.deserialize(serialized).localId)
     }
 }
