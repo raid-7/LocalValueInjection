@@ -1,0 +1,58 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '1.3.71'
+    id 'org.jetbrains.kotlin.plugin.serialization' version "1.3.71"
+}
+repositories {
+    mavenCentral()
+}
+group 'raid.example'
+version '0.0.1'
+
+kotlin {
+    ext.serialization_version='0.20.0'
+    ext.coroutine_version='1.3.5'
+
+    jvm()
+    js {
+        browser {
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+        jvmMain {
+            dependencies {
+                implementation kotlin('stdlib-jdk8')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+            }
+        }
+        jvmTest {
+            dependencies {
+                implementation kotlin('test')
+                implementation kotlin('test-junit')
+            }
+        }
+        jsMain {
+            dependencies {
+                implementation kotlin('stdlib-js')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
+            }
+        }
+        jsTest {
+            dependencies {
+                implementation kotlin('test-js')
+            }
+        }
+    }
+}

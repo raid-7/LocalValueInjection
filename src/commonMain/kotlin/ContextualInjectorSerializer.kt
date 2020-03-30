@@ -1,0 +1,16 @@
+package raid.neuroide.reproto
+
+import kotlinx.serialization.*
+
+class ContextualInjectorSerializer<T>(private val localValue: T) : KSerializer<T> {
+    override val descriptor = SerialDescriptor("ValueInjection", StructureKind.OBJECT)
+
+    override fun deserialize(decoder: Decoder): T {
+        decoder.beginStructure(descriptor).endStructure(descriptor)
+        return localValue
+    }
+
+    override fun serialize(encoder: Encoder, value: T) {
+        encoder.beginStructure(descriptor).endStructure(descriptor)
+    }
+}
