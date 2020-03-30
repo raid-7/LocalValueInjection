@@ -4,7 +4,7 @@ import kotlinx.serialization.ContextSerializer
 import kotlinx.serialization.Serializable
 
 interface NodeContext {
-    val siteId: LocalSiteId
+    val siteId: String
 }
 
 @OptIn(kotlinx.serialization.ImplicitReflectionSerializer::class)

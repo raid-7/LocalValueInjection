@@ -12,9 +12,6 @@ private fun getSerialModuleForContext(context: NodeContext) =
                 contextual(NodeContextWrapper::class,
                     ContextualInjectorSerializer(context.wrapped())
                 )
-                contextual(LocalSiteId::class,
-                    ContextualInjectorSerializer(context.siteId)
-                )
             }
 
 class SerializationManager(site: String) {
@@ -31,7 +28,5 @@ class SerializationManager(site: String) {
 
     private fun getJson() = Json(JsonConfiguration.Stable, module)
 
-    private inner class Context(site: String) : NodeContext {
-        override val siteId = LocalSiteId(site)
-    }
+    private inner class Context(override val siteId: String) : NodeContext
 }

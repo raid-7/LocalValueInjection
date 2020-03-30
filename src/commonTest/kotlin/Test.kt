@@ -10,8 +10,6 @@ class Test {
         val m2 = SerializationManager("local2")
         val serialized = m1.serialize(SomeClass(m1.context.wrapped()))
 
-        assertEquals("local2", m2.deserialize(serialized).id.id)
+        assertEquals("local2", m2.deserialize(serialized).id)
     }
-
-
 }
