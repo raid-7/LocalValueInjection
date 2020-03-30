@@ -17,16 +17,21 @@ private fun getSerialModuleForContext(context: NodeContext) =
                 )
             }
 
-internal class PrototypeSerializationManager(private val context: NodeContext) {
+class SerializationManager(site: String) {
+    val context: NodeContext = Context(site)
     private val module = getSerialModuleForContext(context)
 
-    fun serialize(prototype: Prototype): String {
-        return getJson().stringify(Prototype.serializer(), prototype)
+    fun serialize(prototype: SomeClass): String {
+        return getJson().stringify(SomeClass.serializer(), prototype)
     }
 
-    fun deserialize(data: String): Prototype {
-        return getJson().parse(Prototype.serializer(), data)
+    fun deserialize(data: String): SomeClass {
+        return getJson().parse(SomeClass.serializer(), data)
     }
 
-    private fun getJson() = Json(JsonConfiguration.Stable.copy(classDiscriminator = "_type"), module)
+    private fun getJson() = Json(JsonConfiguration.Stable, module)
+
+    private inner class Context(site: String) : NodeContext {
+        override val siteId = LocalSiteId(site)
+    }
 }

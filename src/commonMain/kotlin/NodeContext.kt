@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 interface NodeContext {
     val siteId: LocalSiteId
-    fun issueId(): String
 }
 
 @OptIn(kotlinx.serialization.ImplicitReflectionSerializer::class)
